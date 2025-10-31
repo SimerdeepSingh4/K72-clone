@@ -83,8 +83,8 @@ const Agence = () => {
             </h1>
           </div>
           <div style={{ paddingLeft: TEXT_MARGIN_LEFT, marginTop: "5rem" }}>
-            <p className="text">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notre
+            <p className="text pr-2.5 text-sm indent-20">
+              Notre
               curiosité nourrit notre créativité. On reste humbles et on dit non
               aux gros egos, même le vôtre. Une marque est vivante. Elle a des
               valeurs, une personnalité, une histoire. Si on oublie ça, on peut

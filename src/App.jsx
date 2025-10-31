@@ -8,7 +8,7 @@ import FullScreenNav from './components/Navigation/FullScreenNav'
 
 const App = () => {
   return (
-    <div className='text-white selection:bg-[#D3FD50] selection:text-black'>
+    <div className='text-white selection:bg-[#D3FD50] selection:text-black overflow-x-hidden'>
       <Navbar />
       <FullScreenNav/>
       <Routes>
