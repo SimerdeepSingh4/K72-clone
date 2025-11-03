@@ -1,12 +1,75 @@
-# React + Vite
+# K72.ca Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a frontend clone of the website [K72.ca](https://k72.ca/). It is built with React and Vite.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+*   **Multi-page Navigation:** The application includes multiple pages like Home, Agence, and Projects, with smooth transitions between them.
+*   **GSAP Animations:** The website uses GSAP (GreenSock Animation Platform) for high-performance animations, creating a dynamic and engaging user experience.
+*   **Full-Screen Navigation:** A modern, full-screen navigation menu that provides an immersive browsing experience.
+*   **Project Showcase:** A dedicated page to showcase projects with a clean and organized layout.
+*   **Responsive Design:** The website is designed to be responsive and work on different screen sizes, from mobile devices to desktops.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+*   **React:** A JavaScript library for building user interfaces.
+*   **Vite:** A fast build tool and development server for modern web projects.
+*   **React Router:** For handling routing and navigation between different pages.
+*   **GSAP (GreenSock Animation Platform):** For creating high-performance animations.
+*   **Tailwind CSS:** A utility-first CSS framework for rapid UI development.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm
+
+### Installation
+
+1.  Clone the repo
+    ```sh
+    git clone https://github.com/your_username/K72-clone.git
+    ```
+2.  Install NPM packages
+    ```sh
+    npm install
+    ```
+
+### Running the application
+
+To run the application in development mode, use the following command:
+
+```sh
+npm run dev
+```
+
+This will start the development server at `http://localhost:5173`.
+
+### Building the application
+
+To build the application for production, use the following command:
+
+```sh
+npm run build
+```
+
+This will create a `dist` folder with the production-ready files.
+
+## About the original website
+
+K72 is a creative agency based in Montreal. This project is a clone of their website and is for educational purposes only.
+
+## 🙋‍♂️ Author
+
+**Simerdeep Singh Gandhi**
+
+- Portfolio: [https://simerdeep-portfolio.vercel.app/](https://simerdeep-portfolio.vercel.app/)
+- GitHub: [@SimerdeepSingh4](https://github.com/SimerdeepSingh4)
+- LinkedIn: [Simerdeep Singh Gandhi](https://www.linkedin.com/in/simerdeep-singh-gandhi/)
+
+---
+
+## ✨ Show Your Support
+
+Give a ⭐️ if this project helped you!
