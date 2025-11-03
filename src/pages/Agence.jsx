@@ -3,18 +3,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import React, { useRef } from "react";
 import { imageArray, getImageName } from "../components/agence/data";
-import {
-  ANIMATION_END,
-  ANIMATION_START,
-  IMAGE_HEIGHT,
-  IMAGE_LEFT,
-  IMAGE_TOP,
-  IMAGE_WIDTH,
-  TEXT_MARGIN_LEFT,
-  TITLE_LINE_HEIGHT,
-  TITLE_MARGIN_TOP,
-} from "../components/agence/constants";
-import "./Agence.css";
 
 const Agence = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -22,51 +10,91 @@ const Agence = () => {
   const imageDivRef = useRef(null);
   const imageRef = useRef(null);
 
-  useGSAP(
-    function () {
-      const tl = gsap.to(imageDivRef.current, {
-        scrollTrigger: {
-          trigger: imageDivRef.current,
-          start: ANIMATION_START,
-          end: ANIMATION_END,
-          scrub: true,
-          pin: true,
-          // pinReparent: true,
-          // pinType: 'transform',
+useGSAP(() => {
+  gsap.registerPlugin(ScrollTrigger);
 
-          onUpdate: (elem) => {
-            // Ensure every image appears while scrolling
-            const totalImages = imageArray.length;
-            const imageIndex = Math.min(
-              Math.floor(elem.progress * totalImages),
-              totalImages - 1
-            );
-            if (imageRef.current) {
-              imageRef.current.src = imageArray[imageIndex];
-              imageRef.current.alt = getImageName(imageArray[imageIndex]);
-            }
+  const mm = gsap.matchMedia();
+
+  mm.add(
+    {
+      isDesktop: "(min-width: 1024px)",
+      isMobile: "(max-width: 1023px)",
+    },
+    (context) => {
+      const { isDesktop, isMobile } = context.conditions;
+
+      if (isDesktop) {
+        gsap.to(imageDivRef.current, {
+          scrollTrigger: {
+            trigger: imageDivRef.current,
+            start: "top 25%",
+            end: "top -230%",
+            scrub: true,
+            pin: true,
+            markers: false,
+            onUpdate: (elem) => {
+              const totalImages = imageArray.length;
+              const imageIndex = Math.min(
+                Math.floor(elem.progress * totalImages),
+                totalImages - 1
+              );
+              if (imageRef.current) {
+                imageRef.current.src = imageArray[imageIndex];
+                imageRef.current.alt = getImageName(imageArray[imageIndex]);
+              }
+            },
           },
+        });
+      }
+
+if (isMobile) {
+  // Kill any existing ScrollTrigger just in case
+  ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+  let currentIndex = 0;
+  const totalImages = imageArray.length;
+
+  // Immediately show first image
+  if (imageRef.current) {
+    imageRef.current.src = imageArray[0];
+    imageRef.current.alt = getImageName(imageArray[0]);
+  }
+
+  // 🔁 Automatically change every few seconds
+  const interval = setInterval(() => {
+    currentIndex = (currentIndex + 1) % totalImages;
+    if (imageRef.current) {
+      gsap.to(imageRef.current, {
+
+        duration: 0.5,
+        onComplete: () => {
+          imageRef.current.src = imageArray[currentIndex];
+          imageRef.current.alt = getImageName(imageArray[currentIndex]);
+          gsap.to(imageRef.current, { duration: 0.5 });
         },
       });
-      return () => {
-        tl.kill();
-      };
-    },
-    { scope: imageDivRef }
+    }
+  }, 2500);
+
+
+  return () => clearInterval(interval);
+}
+    }
   );
 
+
+  return () => {
+    mm.revert();
+  };
+});
+
+
   return (
-    <div className="min-h-screen w-full bg-white">
-      <div className="section1 py-1">
+    <div className="min-h-screen w-full bg-white text-black">
+      <div className="  section1 py-1">
         <div
           ref={imageDivRef}
-          className="image-container"
-          style={{
-            height: IMAGE_HEIGHT,
-            width: IMAGE_WIDTH,
-            top: IMAGE_TOP,
-            left: IMAGE_LEFT,
-          }}
+          className="absolute overflow-hidden rounded-3xl h-[50vw] w-[30vw] top-[20vh] left-[20vw] lg:h-[20vw] lg:w-[15vw] lg:top-[25vh] lg:left-[29vw] "
         >
           <img
             ref={imageRef}
@@ -75,15 +103,15 @@ const Agence = () => {
             alt={getImageName(imageArray[0])}
           />
         </div>
-        <div className="title-container">
-          <div style={{ marginTop: TITLE_MARGIN_TOP }}>
-            <h1 className="title" style={{ lineHeight: TITLE_LINE_HEIGHT }}>
+        <div className="relative font-[font2]">
+          <div className="mt-[38vh] lg:mt-[35vh] lg:pt-20">
+            <h1 className="uppercase text-center text-[9vh] text-black lg:text-[40vh] leading-tight" >
               Soixan7e <br />
               Douze
             </h1>
           </div>
-          <div style={{ paddingLeft: TEXT_MARGIN_LEFT, marginTop: "5rem" }}>
-            <p className="text pr-2.5 text-sm indent-20">
+          <div className="mt-30 lg:pl-150 lg:mt-5">
+            <p className="text-2xl  text-black lg:pr-2.5 lg:text-7xl indent-50 lg:indent-70 lg:text-left text-center  sm:tracking-wider">
               Notre
               curiosité nourrit notre créativité. On reste humbles et on dit non
               aux gros egos, même le vôtre. Une marque est vivante. Elle a des
@@ -93,9 +121,33 @@ const Agence = () => {
               bâtir des marques influentes.
             </p>
           </div>
+          <div className="flex ml-[10vw] gap-[15vw] mt-[30vh] text-3xl font-[font2]">
+            <div >
+              <h2>Expertise</h2>
+            </div>
+            <div>
+              <ul>
+                <li>Stratégie</li>
+                <li>Publicité</li>
+                <li>Branding</li>
+                <li>Design </li>
+                <li>Contenu</li>
+              </ul>
+            </div>
+          </div>
+          <div className="flex flex-col lg:flex-row p-5 mt-25 font-[font2] gap-10 text-3xl">
+            <p>
+              Nos projets_ naissent dans l’humilité, grandissent dans la curiosité et vivent grâce à la créativité sous toutes ses formes.
+            </p>
+            <p>
+              Notre création_ bouillonne dans un environnement où le talent a le goût d’exploser. Où on se sent libre d’être la meilleure version de soi-même.
+            </p>
+            <p>
+              Notre culture_ c’est l’ouverture aux autres. Point. Tout l’équipage participe à bâtir une agence dont on est fiers.
+            </p>
+          </div>
         </div>
       </div>
-      <div className="section2 h-screen"></div>
     </div>
   );
 };

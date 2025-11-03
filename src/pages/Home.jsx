@@ -57,7 +57,7 @@ const Home = () => {
 
 
   return (
-    <div className='overflow-hidden'>
+    <div className=''>
       <div className='h-screen w-screen fixed'>
         <img
           ref={imgRef}
@@ -73,7 +73,7 @@ const Home = () => {
           inlineVideoWrapperRef={inlineVideoWrapperRef}
           inlineVideoRef={inlineVideoRef}
         />
-        <div className="font-[font2] ml-300 pr-2.5 text-sm indent-19 tracking-wider" ref={projetsRef}>
+        <div className="font-[font2] ml-30 lg:ml-300 pr-2.5 text-sm indent-19 tracking-wider" ref={projetsRef}>
           
           K72 est une agence qui pense chaque action pour nourrir la marque. Demain, dans 5 mois et dans 5 ans. On cherche la  friction qui crée l’étincelle pour générer de l’émotion. Pour assurer une relation honnête,  on est sans filtre, on dit ce qui doit être dit, on fait ce qui doit être fait.
         </div>

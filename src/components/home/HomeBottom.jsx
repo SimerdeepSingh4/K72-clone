@@ -40,14 +40,14 @@ const HomeBottom = () => {
         <div className="font-[font2] flex items-center justify-center gap-5 pb-3 " ref={projetsRef}>
             <div
                 ref={projetsRef}
-                className="leading-[4vw] uppercase flex items-center border-3 hover:border-[#D3FD50] hover:text-[#D3FD50] border-white rounded-full px-4 "
+                className="leading-[4vw] uppercase flex items-end border-3 hover:border-[#D3FD50] hover:text-[#D3FD50] border-white rounded-full px-5 lg:px-7 lg:pt-3"
             >
                 <Link className="text-[6vw] mt-3 mb-1" to="/projects">
                     Projets
                 </Link>
             </div>
             <div
-                className="leading-[4vw] uppercase flex items-center border-3 hover:border-[#D3FD50] hover:text-[#D3FD50] border-white rounded-full px-4 "
+                className="leading-[4vw] uppercase flex items-end border-3 hover:border-[#D3FD50] hover:text-[#D3FD50] border-white rounded-full px-5 lg:px-7 lg:pt-3"
             >
                 <Link className="text-[6vw] mt-3 mb-1" to="/Agence">
                     Agence

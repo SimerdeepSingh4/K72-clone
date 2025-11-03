@@ -20,9 +20,9 @@ const Stairs = (props) => {
 
             if (firstLoad.current) {
                 tl.set(stairParentRef.current, { display: 'block' });
-                tl.set(stairs, { y: '-100%' });
+                tl.set(stairs, { y: '-50%' });
                 tl.to(stairs, {
-                    y: '100%',
+                    y: '150%',
                     duration: 0.7,
                     ease: 'power2.inOut',
                     stagger: { amount: -0.35 },
@@ -38,7 +38,7 @@ const Stairs = (props) => {
                     stagger: { amount: -0.35 },
                 });
                 tl.to(stairs, {
-                    y: '100%',
+                    y: '150%',
                     duration: 0.7,
                     ease: 'power2.inOut',
                     stagger: { amount: -0.35 },
@@ -63,8 +63,8 @@ const Stairs = (props) => {
 
     return (
         <div>
-            <div ref={stairParentRef} className="h-screen w-full fixed z-10 top-0" aria-hidden="true">
-                <div className="h-full w-full flex">
+            <div ref={stairParentRef} className="h-full w-full fixed z-10 top-0" aria-hidden="true">
+                <div className="h-[150%] lg:h-full w-full flex">
                     {Array.from({ length: stairsCount }).map((_, i) => (
                         <div
                             key={i}

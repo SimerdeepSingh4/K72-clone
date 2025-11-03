@@ -1,0 +1,28 @@
+.stairs-parent{ /* ensure 3d preserve to avoid subpixel seam artifacts */
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  perspective: 1000px; /* helps with GPU compositing */
+  overflow: hidden; /* hide any tiny gaps during transitions */
+}
+
+.stair{
+  /* force its own compositing layer to avoid hairline seams between adjacent transformed elements */
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  /* remove any subpixel gaps by ensuring no borders or outlines */
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+/* Make sure flex children fully stretch and there are no gaps from line-height/subpixel rounding */
+.stairs-parent > .h-full.w-full.flex{ /* targets the inner wrapper when using the Tailwind classes */
+  align-items: stretch;
+  gap: 0;
+  font-size: 0; /* avoid inline-gap artifacts, harmless for block children */
+}

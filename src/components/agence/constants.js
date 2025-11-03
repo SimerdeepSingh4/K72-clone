@@ -1,9 +1,0 @@
-export const ANIMATION_START = "top 35%";
-export const ANIMATION_END = "top -200%";
-export const IMAGE_HEIGHT = "20vw";
-export const IMAGE_WIDTH = "15vw";
-export const IMAGE_TOP = "35vh";
-export const IMAGE_LEFT = "30vw";
-export const TITLE_MARGIN_TOP = "55vh";
-export const TITLE_LINE_HEIGHT = "18vw";
-export const TEXT_MARGIN_LEFT = "40%";
