@@ -49,7 +49,7 @@ const HomeBottom = () => {
             <div
                 className="leading-[4vw] uppercase flex items-end border-3 hover:border-[#D3FD50] hover:text-[#D3FD50] border-white rounded-full px-5 lg:px-7 lg:pt-3"
             >
-                <Link className="text-[6vw] mt-3 mb-1" to="/Agence">
+                <Link className="text-[6vw] mt-3 mb-1" to="/agence">
                     Agence
                 </Link>
             </div>
