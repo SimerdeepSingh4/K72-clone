@@ -126,7 +126,7 @@ const [hovered, setHovered] = useState(null);
               pin: true,
               start: "top center",
               end: "top center",
-              markers: true,
+              markers: false,
               scrub: 2,
             },
           });
@@ -144,7 +144,7 @@ const [hovered, setHovered] = useState(null);
         pin: true,
         start: "top 100%",
         end: "top 100%",
-        markers: true,
+        markers: false,
         scrub: 2,
       },
     });
