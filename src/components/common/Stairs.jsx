@@ -63,7 +63,7 @@ const Stairs = (props) => {
 
     return (
         <div>
-            <div ref={stairParentRef} className="h-full w-full fixed z-10 top-0" aria-hidden="true">
+            <div ref={stairParentRef} className="h-[200%] w-full fixed z-10 top-0" aria-hidden="true">
                 <div className="h-[150%] lg:h-full w-full flex">
                     {Array.from({ length: stairsCount }).map((_, i) => (
                         <div

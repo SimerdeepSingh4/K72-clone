@@ -2,6 +2,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import NavContext, { NavbarContext } from '../../context/NavContext';
+import AnimatedLink from '../../hooks/AnimatedLink';
 import { Link } from 'react-router-dom';
 
 const FullScreenNav = (props) => {
@@ -11,8 +12,6 @@ const FullScreenNav = (props) => {
     const [time, setTime] = useState("")
 
     const [navOpen, setNavOpen] = useContext(NavbarContext)
-    console.log(navOpen);
-
 
     const stairsCount = props.stairsCount || 5
     function gsapAnimation() {
@@ -21,7 +20,7 @@ const FullScreenNav = (props) => {
         tl.set('.navtopbar', { opacity: 0 })
         tl.set('.stairing', { height: 0 })
         tl.set('.link', { opacity: 0, rotateX: 90 })
-        tl.set('.navlink', { opacity: 0 })
+        
         tl.set('.navfooter', { opacity: 0, y: 20, pointerEvents: 'none' })
 
         // show overlay (use autoAlpha for opacity+visibility)
@@ -48,9 +47,6 @@ const FullScreenNav = (props) => {
             stagger: {
                 amount: 0.2
             }
-        })
-        tl.to('.navlink', {
-            opacity: 1
         })
 
         // reveal footer (bottom links/socials)
@@ -119,9 +115,11 @@ const FullScreenNav = (props) => {
         return () => clearInterval(interval)
     }, [])
     const projetsRef = useRef(null);
+    
+
     return (
-    <div ref={fullScreenRef} id='fullscreennav' className='fullscreennav hidden text-white overflow-hidden h-screen w-full z-50 fixed top-0 left-0'>
-            <div ref={stairParentRef} className='h-screen w-full fixed'>
+    <div ref={fullScreenRef} id='fullscreennav' className='fullscreennav hidden text-white overflow-hidden h-[100%] w-full z-50 fixed top-0 left-0 '>
+            <div ref={stairParentRef} className='h-[100%] w-full fixed'>
                 <div className='h-full sm:w-full w-[120%] flex'>
                     <div className='stairing h-full w-[35%] sm:w-1/5 bg-black'></div>
                     <div className='stairing h-full w-[35%] sm:w-1/5 bg-black'></div>
@@ -146,8 +144,9 @@ const FullScreenNav = (props) => {
                         <div className='h-33 w-0.5 right-0 rotate-45 origin-top absolute bg-[#FFF]'></div>
                     </div>
                 </div>
-                <div className="py-36 sm:py-3">
-                    <Link to="/projects" onClick={() => setNavOpen(false)} className="block relative">
+                <div className="flex flex-col gap-[8vh]">
+                    <div className="pt-15 ">
+                    <Link  to="/projects" onClick={() => setNavOpen(false)} className="block relative">
                         <div className='link origin-top relative border-t-2 border-white'>
                             <h1 className='font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-3 uppercase pb-0'>project</h1>
                             <div className='moveLink absolute flex top-0 text-black bg-[#D3FD50] border-black'>
@@ -172,7 +171,7 @@ const FullScreenNav = (props) => {
                             </div>
                         </div>
                     </Link>
-                    <Link to="/agence" onClick={() => setNavOpen(false)} className="block relative">
+                    <Link  to="/agence" onClick={() => setNavOpen(false)} className="block relative">
                         <div className='link origin-top relative border-t-2 border-white'>
                             <h1 className='font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-3 uppercase'>Agence</h1>
                             <div className='moveLink absolute flex top-0 text-black bg-[#D3FD50]'>
@@ -196,7 +195,7 @@ const FullScreenNav = (props) => {
                                 </div>
                             </div>
                         </div> </Link>
-                    <Link to="/agence" onClick={() => setNavOpen(false)} className="block relative">
+                    <Link  to="/agence" onClick={() => setNavOpen(false)} className="block relative">
                         <div className='link origin-top relative border-t-2 border-white'>
                             <h1 className='font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-3 uppercase'>Contact</h1>
                             <div className='moveLink absolute flex top-0 text-black bg-[#D3FD50]'>
@@ -220,7 +219,7 @@ const FullScreenNav = (props) => {
                                 </div>
                             </div>
                         </div> </Link>
-                    <Link to="/agence" onClick={() => setNavOpen(false)} className="block relative">
+                    <Link  to="/agence" onClick={() => setNavOpen(false)} className="block relative">
                         <div className='link origin-top relative border-t-2 border-b-2 border-white'>
                             <h1 className='font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-3 uppercase'>Blogue</h1>
                             <div className='moveLink absolute flex top-0 text-black bg-[#D3FD50]'>
@@ -245,7 +244,7 @@ const FullScreenNav = (props) => {
                             </div>
                         </div></Link>
                 </div>
-                <div className='flex flex-col lg:flex-row justify-between items-center gap-4 p-5 font-[font2] lg:mt-23 navfooter'>
+                <div className='flex flex-col md:flex-row justify-between items-center px-2 gap-4 font-[font2]  navfooter'>
                     <div className=" bottom-2 left-2 hidden lg:flex items-center gap-4 text-2xl font-[font2] text-white ">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -262,18 +261,19 @@ const FullScreenNav = (props) => {
                         <span className='text-xl'>MONTREAL_{time}</span>
 
                     </div>
-                    <div className='flex flex-col lg:flex-row justify-between gap-3 text-sm text-center'>
+                    <div className='flex flex-col md:flex-row justify-between gap-3 text-sm text-center'>
                         <a href="#" className='hover:text-[#D3FD50]'>Politique de confidentialité</a>
                         <a href="#" className='hover:text-[#D3FD50]'>Avis de confidentialité</a>
                         <a href="#" className='hover:text-[#D3FD50]'> Rapport éthique</a>
                         <a href="#" className='hover:text-[#D3FD50]'>Options de consentement</a>
                     </div>
-                    <div className='flex justify-between gap-3 text-4xl  text text-center'>
-                        <h4 className='border-2 px-3 rounded-3xl hover:text-[#D3FD50] font-extrabold'>FB</h4>
-                        <h4 className='border-2 px-3 rounded-3xl hover:text-[#D3FD50] font-extrabold'>IG</h4>
-                        <h4 className='border-2 px-3 rounded-3xl hover:text-[#D3FD50] font-extrabold'>IN</h4>
-                        <h4 className='border-2 px-3 rounded-3xl hover:text-[#D3FD50] font-extrabold'>BE</h4>
+                    <div className='flex justify-between gap-3 text-4xl text text-center'>
+                        <h4 className='border-2 px-3 pt-1 rounded-3xl hover:text-[#D3FD50] font-extrabold'>FB</h4>
+                        <h4 className='border-2 px-3 pt-1 rounded-3xl hover:text-[#D3FD50] font-extrabold'>IG</h4>
+                        <h4 className='border-2 px-3 pt-1 rounded-3xl hover:text-[#D3FD50] font-extrabold'>IN</h4>
+                        <h4 className='border-2 px-3 pt-1 rounded-3xl hover:text-[#D3FD50] font-extrabold'>BE</h4>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
