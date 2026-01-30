@@ -9,6 +9,9 @@ const FullScreenNav = (props) => {
     const stairParentRef = useRef(null)
     const fullNavLinksRef = useRef(null)
     const fullScreenRef = useRef(null)
+    const stairsRefs = useRef([])
+    const navTopbarRef = useRef(null)
+    const navFooterRef = useRef(null)
     const [time, setTime] = useState("")
 
     const [navOpen, setNavOpen] = useContext(NavbarContext)
@@ -17,18 +20,19 @@ const FullScreenNav = (props) => {
     function gsapAnimation() {
         const tl = gsap.timeline()
         // prepare initial states so nothing lingers between opens/closes
-        tl.set('.navtopbar', { opacity: 0 })
-        tl.set('.stairing', { height: 0 })
-        tl.set('.link', { opacity: 0, rotateX: 90 })
+        const links = fullNavLinksRef.current ? fullNavLinksRef.current.querySelectorAll('.link') : []
+        tl.set(navTopbarRef.current, { opacity: 0 })
+        tl.set(stairsRefs.current, { height: 0 })
+        tl.set(links, { opacity: 0, rotateX: 90 })
         
-        tl.set('.navfooter', { opacity: 0, y: 20, pointerEvents: 'none' })
+        tl.set(navFooterRef.current, { opacity: 0, y: 20, pointerEvents: 'none' })
 
         // show overlay (use autoAlpha for opacity+visibility)
-        tl.set('.fullscreennav', { display: 'block' })
-        tl.fromTo('.fullscreennav', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.12 })
+        tl.set(fullScreenRef.current, { display: 'block' })
+        tl.fromTo(fullScreenRef.current, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.12 })
 
         // reveal stairs
-        tl.to('.stairing', {
+        tl.to(stairsRefs.current, {
             delay: 0.05,
             height: '100%',
             stagger: {
@@ -37,11 +41,11 @@ const FullScreenNav = (props) => {
         })
 
         // reveal nav topbar and links
-        tl.to('.navtopbar', {
+        tl.to(navTopbarRef.current, {
             opacity: 1,
             duration: 0.2,
         }, '-=0.2')
-        tl.to('.link', {
+        tl.to(links, {
             opacity: 1,
             rotateX: 0,
             stagger: {
@@ -50,27 +54,27 @@ const FullScreenNav = (props) => {
         })
 
         // reveal footer (bottom links/socials)
-        tl.to('.navfooter', { opacity: 1, y: 0, duration: 0.18, pointerEvents: 'auto' }, '-=0.15')
+        tl.to(navFooterRef.current, { opacity: 1, y: 0, duration: 0.18, pointerEvents: 'auto' }, '-=0.15')
     }
     function gsapAnimationReverse() {
         const tl = gsap.timeline()
+        const links = fullNavLinksRef.current ? fullNavLinksRef.current.querySelectorAll('.link') : []
         // hide links and footer first
-        tl.to('.link', {
+        tl.to(links, {
             opacity: 0,
             rotateX: 90,
             stagger: {
                 amount: 0.2
             }
         })
-        tl.to('.navlink', { opacity: 0 }, '<')
-        tl.to('.navfooter', { opacity: 0, y: 20, duration: 0.15, pointerEvents: 'none' }, '<')
+        tl.to(navFooterRef.current, { opacity: 0, y: 20, duration: 0.15, pointerEvents: 'none' }, '<')
 
         // hide topbar and stairs
-        tl.to('.navtopbar', {
+        tl.to(navTopbarRef.current, {
             opacity: 0,
             duration: 0.18,
         }, '<');
-        tl.to('.stairing', {
+        tl.to(stairsRefs.current, {
             height: 0,
             stagger: {
                 amount: 0.3
@@ -78,10 +82,10 @@ const FullScreenNav = (props) => {
         })
 
         // fade out overlay, then set display none to remove it from the DOM flow
-        tl.to('.fullscreennav', { autoAlpha: 0, duration: 0.15 })
-        tl.set('.fullscreennav', { display: 'none' })
+        tl.to(fullScreenRef.current, { autoAlpha: 0, duration: 0.15 })
+        tl.set(fullScreenRef.current, { display: 'none' })
         // restore navtopbar default inline opacity for next open
-        tl.set('.navtopbar', { opacity: 1 });
+        tl.set(navTopbarRef.current, { opacity: 1 });
     }
 
 
@@ -121,15 +125,17 @@ const FullScreenNav = (props) => {
     <div ref={fullScreenRef} id='fullscreennav' className='fullscreennav hidden text-white overflow-hidden h-[100%] w-full z-50 fixed top-0 left-0 '>
             <div ref={stairParentRef} className='h-[100%] w-full fixed'>
                 <div className='h-full sm:w-full w-[120%] flex'>
-                    <div className='stairing h-full w-[35%] sm:w-1/5 bg-black'></div>
-                    <div className='stairing h-full w-[35%] sm:w-1/5 bg-black'></div>
-                    <div className='stairing h-full w-[35%] sm:w-1/5 bg-black'></div>
-                    <div className='stairing h-full w-[35%] sm:w-1/5 bg-black'></div>
-                    <div className='stairing h-full w-[35%] sm:w-1/5 bg-black'></div>
+                    {Array.from({ length: stairsCount }).map((_, i) => (
+                        <div
+                            key={i}
+                            ref={(el) => (stairsRefs.current[i] = el)}
+                            className='stairing h-full w-[35%] sm:w-1/5 bg-black'
+                        ></div>
+                    ))}
                 </div>
             </div>
             <div ref={fullNavLinksRef} className='relative '>
-                <div className='navtopbar flex w-full justify-between p-5 items-start'>
+                <div ref={navTopbarRef} className='navtopbar flex w-full justify-between p-5 items-start'>
                     <div className=''>
                         <div className=' w-28'>
                             <svg className=' w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 103 44">
@@ -243,7 +249,7 @@ const FullScreenNav = (props) => {
                             </div>
                         </div></Link>
                 </div>
-                <div className='flex flex-col md:flex-row justify-between items-center px-2 gap-4 font-[font2]  navfooter'>
+                <div ref={navFooterRef} className='flex flex-col md:flex-row justify-between items-center px-2 gap-4 font-[font2]  navfooter'>
                     <div className=" bottom-2 left-2 hidden lg:flex items-center gap-4 text-2xl font-[font2] text-white ">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
