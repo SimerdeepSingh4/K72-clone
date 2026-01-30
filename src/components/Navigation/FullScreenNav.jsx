@@ -195,31 +195,30 @@ const FullScreenNav = (props) => {
                                 </div>
                             </div>
                         </div> </Link>
-                    <Link  to="/agence" onClick={() => setNavOpen(false)} className="block relative">
+                    <Link  to="/contact" onClick={() => setNavOpen(false)} className="block relative">
                         <div className='link origin-top relative border-t-2 border-white'>
                             <h1 className='font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-3 uppercase'>Contact</h1>
                             <div className='moveLink absolute flex top-0 text-black bg-[#D3FD50]'>
                                 <div className='moveX flex items-center '>
                                     <h2 className='whitespace-nowrap font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-4 uppercase'> Pour envoyer un fax</h2>
-                                    <img src="https://k72.ca/uploads/caseStudies/PJC/Thumbnails/PJC_SiteK72_Thumbnail_640x290.jpg"
-                                        alt="" className='lg:h-24 rounded-full shrink-0 lg:w-72 object-cover h-15 w-25' />
-                                    <h2 className='whitespace-nowrap font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-4 uppercase'>Pour envoyer un fax</h2>
-                                    <img src="https://k72.ca/uploads/caseStudies/WIDESCAPE/WS---K72.ca---MenuThumbnail-640x290.jpg"
-                                        alt="" className='lg:h-24 rounded-full shrink-0 lg:w-72 object-cover h-15 w-25' />
 
+                                        <div className='heart lg:h-30 shrink-0 lg:w-30 object-cover h-15 w-25 ml-3.5 mr-3.5'></div>
+                                        
+                                    <h2 className='whitespace-nowrap font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-4 uppercase'>Pour envoyer un fax</h2>
+                                        <div className='heart lg:h-30 shrink-0 lg:w-30 object-cover h-15 w-25 ml-3.5 mr-3.5'></div>
                                 </div>
                                 <div className='moveX flex items-center '>
                                     <h2 className='whitespace-nowrap font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-4 uppercase'> Pour envoyer un fax</h2>
-                                    <img src="https://k72.ca/uploads/caseStudies/PJC/Thumbnails/PJC_SiteK72_Thumbnail_640x290.jpg"
-                                        alt="" className='lg:h-24 rounded-full shrink-0 lg:w-72 object-cover h-15 w-25' />
-                                    <h2 className='whitespace-nowrap font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-4 uppercase'>Pour envoyer un fax</h2>
-                                    <img src="https://k72.ca/uploads/caseStudies/WIDESCAPE/WS---K72.ca---MenuThumbnail-640x290.jpg"
-                                        alt="" className='lg:h-24 rounded-full shrink-0 lg:w-72 object-cover h-15 w-25' />
 
+                                        <div className='heart lg:h-30 rounded-full shrink-0 lg:w-30 object-cover h-15 w-25 ml-3.5 mr-3.5'></div>
+
+                                    <h2 className='whitespace-nowrap font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-4 uppercase'>Pour envoyer un fax</h2>
+
+                                        <div className='heart lg:h-30 rounded-full shrink-0 lg:w-30 object-cover h-15 w-25 ml-3.5 mr-3.5'></div>
                                 </div>
                             </div>
                         </div> </Link>
-                    <Link  to="/agence" onClick={() => setNavOpen(false)} className="block relative">
+                    <Link  to="/blogue" onClick={() => setNavOpen(false)} className="block relative">
                         <div className='link origin-top relative border-t-2 border-b-2 border-white'>
                             <h1 className='font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-3 uppercase'>Blogue</h1>
                             <div className='moveLink absolute flex top-0 text-black bg-[#D3FD50]'>

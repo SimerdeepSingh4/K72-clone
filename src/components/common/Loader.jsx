@@ -6,33 +6,95 @@ const Loader = ({ stairsCount = 5 }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    if (stairsRefs.current.length === 0) return;
+    let tl = null
+    let globalFallback = null
 
-    gsap.set(stairsRefs.current, { height: 10 });
+    const startLoader = (bars) => {
+      gsap.set(bars, { height: 10 })
 
-    const tl = gsap.timeline({
-      defaults: { ease: "power1.inOut" },
-      onComplete: () => {
-        gsap.to(".loader-container", {
-          opacity: 0,
-          duration: 1.2,
-          ease: "power2.out",
-          onComplete: () => setIsVisible(false),
-        });
-      },
-    });
+      tl = gsap.timeline({
+        defaults: { ease: 'power1.inOut' },
+        onComplete: () => {
+          gsap.to('.loader-container', {
+            opacity: 0,
+            duration: 1.2,
+            ease: 'power2.out',
+            onComplete: () => setIsVisible(false),
+          })
+        },
+      })
 
-    tl.to(stairsRefs.current, {
-      height: 100,
-      duration: 0.8,
-      stagger: {
-        each: 0.15,
-        yoyo: true,
-        repeat: 1,
-      },
-    });
+      tl.to(bars, {
+        height: 100,
+        duration: 0.8,
+        stagger: {
+          each: 0.15,
+          yoyo: true,
+          repeat: 1,
+        },
+      })
+    }
 
-    return () => tl.kill();
+    const waitForWindowLoad = () => new Promise((resolve) => {
+      if (document.readyState === 'complete') return resolve()
+      window.addEventListener('load', () => resolve(), { once: true })
+    })
+
+    const waitForImages = () => {
+      const imgs = Array.from(document.images)
+      if (!imgs.length) return Promise.resolve()
+      return Promise.all(imgs.map((img) => new Promise((res) => {
+        if (img.complete) return res()
+        img.addEventListener('load', res, { once: true })
+        img.addEventListener('error', res, { once: true })
+      })))
+    }
+
+    const waitForVideos = () => {
+      const vids = Array.from(document.querySelectorAll('video'))
+      if (!vids.length) return Promise.resolve()
+      return Promise.all(vids.map((v) => new Promise((res) => {
+        if (v.readyState >= 2) return res()
+        const onReady = () => res()
+        v.addEventListener('loadeddata', onReady, { once: true })
+        v.addEventListener('error', onReady, { once: true })
+      })))
+    }
+
+    const waitForFonts = () => (document.fonts ? document.fonts.ready : Promise.resolve())
+
+    const waitForAssets = async () => {
+      await Promise.allSettled([
+        waitForWindowLoad(),
+        waitForImages(),
+        waitForVideos(),
+        waitForFonts(),
+      ])
+    }
+
+    // show loader visually and prevent scroll while waiting
+    document.body.style.overflow = 'hidden'
+
+    waitForAssets().then(() => {
+      const bars = stairsRefs.current && stairsRefs.current.length ? stairsRefs.current : Array.from(document.querySelectorAll('.loader-bar'))
+      if (bars && bars.length) {
+        startLoader(bars)
+      } else {
+        setIsVisible(false)
+      }
+    })
+
+    // global fallback to avoid infinite loader
+    globalFallback = setTimeout(() => {
+      setIsVisible(false)
+      if (tl) tl.kill()
+    }, 8000)
+
+    return () => {
+      document.body.style.overflow = ''
+      if (tl) tl.kill()
+      if (globalFallback) clearTimeout(globalFallback)
+    }
   }, []);
 
   if (!isVisible) return null;
@@ -63,7 +125,7 @@ const Loader = ({ stairsCount = 5 }) => {
             <div
               key={i}
               ref={(el) => (stairsRefs.current[i] = el)}
-              className="w-[10px] bg-white"
+              className="w-[10px] bg-white loader-bar"
               style={{ height: "10px" }}
             ></div>
           ))}

@@ -73,3 +73,9 @@ html{
 .list.active {
   border-color: black;
 }
+
+.heart{
+  background: black;
+  clip-path: polygon(10% 60%, 10% 40%, 25% 15%, 49% 30%, 75% 15%, 90% 40%, 90% 60%, 50% 96%);
+}
+/* className='lg:h-24 rounded-full shrink-0 lg:w-72 object-cover h-15 w-25' */

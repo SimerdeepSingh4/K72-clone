@@ -7,6 +7,8 @@ import Navbar from './components/Navigation/Navbar'
 import FullScreenNav from './components/Navigation/FullScreenNav'
 import Loader from './components/common/Loader'
 import NavContext from './context/NavContext'
+import Contact from './pages/Contact'
+import Blogue from './pages/Blogue'
 
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/agence' element={<Agence />} />
           <Route path='/projects' element={<Projects />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/blogue' element={<Blogue />} />
         </Routes>
       </div>
     </NavContext>
