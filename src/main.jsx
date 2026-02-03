@@ -6,15 +6,20 @@ import { BrowserRouter } from 'react-router-dom'
 import Stairs from './components/common/Stairs.jsx'
 import NavContext from './context/NavContext.jsx'
 import Navbar from './components/Navigation/Navbar.jsx'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
+
+gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
+      <NavContext>
         <Stairs>
-        <NavContext>
           <App />
-        </NavContext>
-      </Stairs>
+        </Stairs>
+      </NavContext>
     </BrowserRouter>
   </StrictMode>,
 )

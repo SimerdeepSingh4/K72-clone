@@ -5,7 +5,7 @@ import React, { useRef, useState } from "react";
 import { imageArray, getImageName } from "../components/agence/data";
 
 const Agence = () => {
-  gsap.registerPlugin(ScrollTrigger);
+
 
   const imageDivRef = useRef(null);
   const imageRef = useRef(null);
@@ -52,7 +52,7 @@ const [hovered, setHovered] = useState(null);
 ];
 
   useGSAP(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  
 
     const mm = gsap.matchMedia();
 

@@ -5,8 +5,15 @@ This project is a frontend clone of the website [K72.ca](https://k72.ca/). It is
 ## Features
 
 *   **Multi-page Navigation:** The application includes multiple pages like Home, Agence, and Projects, with smooth transitions between them.
+*   **Stair-like Page Transitions:** A unique stair-like animation effect for page transitions, creating a visually interesting experience.
 *   **GSAP Animations:** The website uses GSAP (GreenSock Animation Platform) for high-performance animations, creating a dynamic and engaging user experience.
 *   **Full-Screen Navigation:** A modern, full-screen navigation menu that provides an immersive browsing experience.
+*   **Page Transition Hook:** A custom React hook to manage page transitions with GSAP animations.
+*   **Asset Loading Animation:** A loading screen that waits for all assets (images, videos, fonts) to be loaded before displaying the page.
+*   **Video Background:** A video background on the home page to create a captivating first impression.
+*   **Image Animation on Scroll:** An image on the "Agence" page that changes as the user scrolls, telling a visual story.
+*   **Color Change on Scroll:** A section on the "Agence" page that changes its background color from white to black on scroll, creating a dramatic effect.
+*   **Interactive Team Section:** A section on the "Agence" page that lists team members, with a hover effect on each item.
 *   **Project Showcase:** A dedicated page to showcase projects with a clean and organized layout.
 *   **Responsive Design:** The website is designed to be responsive and work on different screen sizes, from mobile devices to desktops.
 

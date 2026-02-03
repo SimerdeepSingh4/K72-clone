@@ -3,7 +3,6 @@ import gsap from 'gsap';
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import NavContext, { NavbarContext } from '../../context/NavContext';
 import AnimatedLink from '../../hooks/AnimatedLink';
-import { Link } from 'react-router-dom';
 
 const FullScreenNav = (props) => {
     const stairParentRef = useRef(null)
@@ -152,7 +151,7 @@ const FullScreenNav = (props) => {
                 </div>
                 <div className="flex flex-col gap-[8vh]">
                     <div className="pt-15 ">
-                    <Link  to="/projects" onClick={() => setNavOpen(false)} className="block relative">
+                    <AnimatedLink  to="/projects" onClick={() => setNavOpen(false)} className="block relative">
                         <div className='link origin-top relative border-t-2 border-white'>
                             <h1 className='font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-3 uppercase pb-0'>project</h1>
                             <div className='moveLink absolute flex top-0 text-black bg-[#D3FD50] border-black'>
@@ -176,8 +175,8 @@ const FullScreenNav = (props) => {
                                 </div>
                             </div>
                         </div>
-                    </Link>
-                    <Link  to="/agence" onClick={() => setNavOpen(false)} className="block relative">
+                    </AnimatedLink>
+                    <AnimatedLink  to="/agence" onClick={() => setNavOpen(false)} className="block relative">
                         <div className='link origin-top relative border-t-2 border-white'>
                             <h1 className='font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-3 uppercase'>Agence</h1>
                             <div className='moveLink absolute flex top-0 text-black bg-[#D3FD50]'>
@@ -200,8 +199,8 @@ const FullScreenNav = (props) => {
 
                                 </div>
                             </div>
-                        </div> </Link>
-                    <Link  to="/contact" onClick={() => setNavOpen(false)} className="block relative">
+                        </div> </AnimatedLink>
+                    <AnimatedLink  to="/contact" onClick={() => setNavOpen(false)} className="block relative">
                         <div className='link origin-top relative border-t-2 border-white'>
                             <h1 className='font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-3 uppercase'>Contact</h1>
                             <div className='moveLink absolute flex top-0 text-black bg-[#D3FD50]'>
@@ -223,8 +222,8 @@ const FullScreenNav = (props) => {
                                         <div className='heart lg:h-30 rounded-full shrink-0 lg:w-30 object-cover h-15 w-25 ml-3.5 mr-3.5'></div>
                                 </div>
                             </div>
-                        </div> </Link>
-                    <Link  to="/blogue" onClick={() => setNavOpen(false)} className="block relative">
+                        </div> </AnimatedLink>
+                    <AnimatedLink  to="/blogue" onClick={() => setNavOpen(false)} className="block relative">
                         <div className='link origin-top relative border-t-2 border-b-2 border-white'>
                             <h1 className='font-[font2] lg:text-[8vw] text-[13vw] leading-[1] text-center lg:leading-[0.8] pt-3 uppercase'>Blogue</h1>
                             <div className='moveLink absolute flex top-0 text-black bg-[#D3FD50]'>
@@ -247,7 +246,7 @@ const FullScreenNav = (props) => {
 
                                 </div>
                             </div>
-                        </div></Link>
+                        </div></AnimatedLink>
                 </div>
                 <div ref={navFooterRef} className='flex flex-col md:flex-row justify-between items-center px-2 gap-4 font-[font2]  navfooter'>
                     <div className=" bottom-2 left-2 hidden lg:flex items-center gap-4 text-2xl font-[font2] text-white ">

@@ -1,10 +1,12 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { useLocation } from 'react-router-dom'
+import { TransitionContext } from '../../context/NavContext'
 
 const Stairs = (props) => {
     const currentPath = useLocation().pathname
+    const { isTransitioning } = useContext(TransitionContext)
 
     const stairParentRef = useRef(null)
     const pageRef = useRef(null)
@@ -16,7 +18,7 @@ const Stairs = (props) => {
     useGSAP(
         () => {
             const stairs = stairsRefs.current;
-            const tl = gsap.timeline();
+            const tl = gsap.timeline({ paused: true });
 
             if (firstLoad.current) {
                 tl.set(stairParentRef.current, { display: 'block' });
@@ -28,8 +30,10 @@ const Stairs = (props) => {
                     stagger: { amount: -0.35 },
                 });
                 tl.to(stairParentRef.current, { display: 'none' });
+                tl.play();
                 firstLoad.current = false;
             } else {
+                // Entry animation
                 tl.set(stairParentRef.current, { display: 'block' });
                 tl.from(stairs, {
                     height: 0,
@@ -45,6 +49,7 @@ const Stairs = (props) => {
                 });
                 tl.to(stairParentRef.current, { display: 'none' });
                 tl.to(stairs, { y: '0%' });
+                tl.play();
             }
 
             gsap.from(pageRef.current, {
@@ -60,6 +65,19 @@ const Stairs = (props) => {
         },
         [currentPath]
     );
+
+    useGSAP(() => {
+        if (isTransitioning) {
+            const tl = gsap.timeline();
+            tl.to(".stair", {
+                y: "0%",
+                height: "100%",
+                duration: 0.6,
+                ease: "power2.inOut",
+                stagger: 0.1,
+            });
+        }
+    }, [isTransitioning])
 
     return (
         <div>

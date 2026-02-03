@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import ProjectCard from '../components/projects/ProjectCard'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import _ScrollTrigger from 'gsap/ScrollTrigger'
 import { NavbarColorContext } from '../context/NavContext'
 
 const Projects = () => {
@@ -32,7 +31,6 @@ const Projects = () => {
     },
   ]
 
-  gsap.registerPlugin(_ScrollTrigger)
   useGSAP(function () {
     gsap.to('.hero', {
       height: '80vh',
