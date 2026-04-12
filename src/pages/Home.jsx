@@ -1,17 +1,21 @@
-import React, { useRef, useEffect } from "react"
+import React, { useRef, useEffect, useContext } from "react"
 import { gsap } from "gsap"
 import Video from "../components/home/Video"
 import HomeHeroText from "../components/home/HomeHeroText"
 import HomeBottom from "../components/home/HomeBottom"
 import { useGSAP } from "@gsap/react"
+import { LoaderContext } from "../context/NavContext"
 
 const Home = () => {
   const mainVideoRef = useRef(null)       // 🎬 main fullscreen video
   const inlineVideoRef = useRef(null)     // 🎬 inline small video
   const imgRef = useRef(null)
   const inlineVideoWrapperRef = useRef(null)
+  const [loading] = useContext(LoaderContext)
 
   useEffect(() => {
+    if (loading) return; // Wait for loader to finish
+
     if (mainVideoRef.current && inlineVideoRef.current) {
       mainVideoRef.current.currentTime = 0
       inlineVideoRef.current.currentTime = 0
@@ -21,39 +25,43 @@ const Home = () => {
     }
 
     if (imgRef.current) {
+      // Start reveal instantly when loader fade begins for maximum responsiveness
       gsap.to(imgRef.current, {
         opacity: 0,
-        delay: 2.5,
+        duration: 2,
+        ease: "power2.inOut",
+        delay: 0.1, 
         onStart: () => {
-          // 🔑 start videos slightly before fade completes
+          // Play videos as the image begins its slow fade
           if (mainVideoRef.current) mainVideoRef.current.play()
           if (inlineVideoRef.current) inlineVideoRef.current.play()
           gsap.to(inlineVideoWrapperRef.current, {
             opacity: 1,
+            duration: 1.5,
+            ease: "power2.out",
           })
         },
         onComplete: () => {
           if (imgRef.current) imgRef.current.style.display = "none"
-
-
         },
       })
     }
-  }, [])
+  }, [loading])
 
   const projetsRef = useRef(null);
   
   
-      useGSAP(() => {
-          gsap.from([projetsRef.current], {
-              y: -100,
-              opacity: 0,
-              delay: 1.7,
-              duration: 0.8,
-              ease: "power3.out",
-              stagger: 0.3,
-          });
-      });
+  useGSAP(() => {
+    if (loading) return;
+
+    gsap.from([projetsRef.current], {
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+      delay: 0.5, 
+    });
+  }, [loading]);
 
 
   return (

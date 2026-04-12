@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
 import ProjectCard from '../components/projects/ProjectCard'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { NavbarColorContext } from '../context/NavContext'
+
 
 const Projects = () => {
 

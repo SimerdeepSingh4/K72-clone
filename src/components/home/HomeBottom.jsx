@@ -1,10 +1,12 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { LoaderContext } from "../../context/NavContext";
 
 const HomeBottom = () => {
     const [time, setTime] = useState("")
+    const [loading] = useContext(LoaderContext)
 
   useEffect(() => {
     const updateClock = () => {
@@ -22,24 +24,24 @@ const HomeBottom = () => {
     const interval = setInterval(updateClock, 1000)
     return () => clearInterval(interval)
   }, [])
-    const projetsRef = useRef(null);
+    const bottomContentRef = useRef(null);
 
 
     useGSAP(() => {
-        gsap.from([projetsRef.current], {
-            y: 100,
+        if (loading) return;
+
+        gsap.from(bottomContentRef.current, {
+            y: 50,
             opacity: 0,
-            delay: 1.7,
-            duration: 0.8,
+            duration: 1,
+            delay: 0.7, // Appears shortly after hero text and main reveal
             ease: "power3.out",
-            stagger: 0.3,
         });
-    });
+    }, [loading]);
 
     return (
-        <div className="font-[font2] flex items-center justify-center gap-5 pb-3 " ref={projetsRef}>
+        <div className="font-[font2] flex items-center justify-center gap-5 pb-3 " ref={bottomContentRef}>
             <div
-                ref={projetsRef}
                 className="leading-[4vw] uppercase flex items-end border-3 hover:border-[#D3FD50] hover:text-[#D3FD50] border-white rounded-full px-5 lg:px-7 lg:pt-3"
             >
                 <Link className="text-[6vw] mt-3 mb-1" to="/projects">

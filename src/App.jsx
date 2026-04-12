@@ -12,20 +12,18 @@ import Blogue from './pages/Blogue'
 
 const App = () => {
   return (
-    <NavContext>
-      <div className='text-white selection:bg-[#D3FD50] selection:text-black overflow-x-hidden'>
-        <Navbar />
-        <Loader />
-        <FullScreenNav />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/agence' element={<Agence />} />
-          <Route path='/projects' element={<Projects />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path='/blogue' element={<Blogue />} />
-        </Routes>
-      </div>
-    </NavContext>
+    <div className='text-white selection:bg-[#D3FD50] selection:text-black overflow-x-hidden'>
+      <Navbar />
+      <Loader />
+      <FullScreenNav />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/agence' element={<Agence />} />
+        <Route path='/projects' element={<Projects />} />
+        <Route path='/contact' element={<Contact />} />
+        <Route path='/blogue' element={<Blogue />} />
+      </Routes>
+    </div>
   )
 }
 

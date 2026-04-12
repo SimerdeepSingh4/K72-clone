@@ -13,7 +13,7 @@ export const usePageTransition = () => {
     setTimeout(() => {
       navigate(to);
       setIsTransitioning(false)
-    }, 1100); // This duration should be in sync with the stair animation
+    }, 1300); // This duration should be in sync with the stair animation
   };
 
   return { handleRouteChange, isTransitioning };

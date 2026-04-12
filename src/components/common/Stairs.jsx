@@ -39,11 +39,15 @@ const Stairs = (props) => {
 
             tl.set(stairParentRef.current, { display: 'none' });
 
-            // Animate page content fade in
-            gsap.fromTo(pageRef.current, 
-                { opacity: 0 }, 
-                { opacity: 1, duration: 0.4, ease: 'power2.out' }
-            );
+            // Animate page content fade in (skip initial load if handled by Loader/placeholder)
+            if (!firstLoad.current) {
+                gsap.fromTo(pageRef.current, 
+                    { opacity: 0 }, 
+                    { opacity: 1, duration: 0.4, ease: 'power2.out' }
+                );
+            } else {
+                gsap.set(pageRef.current, { opacity: 1 });
+            }
 
             return () => {
                 tl.kill();

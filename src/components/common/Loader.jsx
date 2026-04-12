@@ -1,9 +1,11 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import gsap from "gsap";
+import { LoaderContext } from "../../context/NavContext";
 
 const Loader = ({ stairsCount = 5 }) => {
   const stairsRefs = useRef([]);
   const [isVisible, setIsVisible] = useState(true);
+  const [, setLoading] = useContext(LoaderContext);
 
   useEffect(() => {
     let tl = null
@@ -15,11 +17,16 @@ const Loader = ({ stairsCount = 5 }) => {
       tl = gsap.timeline({
         defaults: { ease: 'power1.inOut' },
         onComplete: () => {
+          // Trigger global loading state removal at the START of the fade-out
+          setLoading(false); 
+          
           gsap.to('.loader-container', {
             opacity: 0,
             duration: 1.2,
             ease: 'power2.out',
-            onComplete: () => setIsVisible(false),
+            onComplete: () => {
+                setIsVisible(false);
+            },
           })
         },
       })
@@ -87,6 +94,7 @@ const Loader = ({ stairsCount = 5 }) => {
     // global fallback to avoid infinite loader
     globalFallback = setTimeout(() => {
       setIsVisible(false)
+      setLoading(false)
       if (tl) tl.kill()
     }, 8000)
 

@@ -23,11 +23,8 @@ const NavContext = ({ children }) => {
         }
     },[locate])
 
-    // show loader on initial mount for a short duration
-    useEffect(() => {
-        const t = setTimeout(() => setLoading(false), 900)
-        return () => clearTimeout(t)
-    }, [])
+    // loading state is now controlled by Loader component
+
 
     return (
         <div>

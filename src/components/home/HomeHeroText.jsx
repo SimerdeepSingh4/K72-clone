@@ -1,27 +1,31 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useContext } from 'react'
 import { gsap } from 'gsap'
 import Video from './Video'
+import { useGSAP } from "@gsap/react"
+import { LoaderContext } from '../../context/NavContext'
 
 const HomeHeroText = ({ inlineVideoRef, inlineVideoWrapperRef }) => {
     const containerRef = useRef(null)
+    const [loading] = useContext(LoaderContext)
 
-    useEffect(() => {
-        // Only animate text, do not control video here
+    useGSAP(() => {
+        if (loading) return;
+
         const lines = containerRef.current.querySelectorAll(".hero-line")
 
         gsap.fromTo(
             lines,
-            { y: "-100%", opacity: 0 },   // start state
+            { y: "150%", opacity: 0 },   // Start from below
             {
                 y: "0%",
                 opacity: 1,
-                delay: 1.4,
-                duration: 0.9,
-                stagger: 0.3,
-                ease: "power3.out"
+                delay: 0.3,            // Starts shortly after loader begins to fade
+                duration: 1.2,
+                stagger: 0.15,
+                ease: "power4.out"
             }
         )
-    }, [])
+    }, [loading]);
 
     return (
         <div 
