@@ -15,63 +15,52 @@ const Stairs = (props) => {
 
     const firstLoad = useRef(true)
 
+    // Handle Entry/Reveal animation when path changes
     useGSAP(
         () => {
             const stairs = stairsRefs.current;
-            const tl = gsap.timeline({ paused: true });
+            const tl = gsap.timeline();
+
+            // Always ensure parent is visible during transition
+            gsap.set(stairParentRef.current, { display: 'block' });
 
             if (firstLoad.current) {
-                tl.set(stairParentRef.current, { display: 'block' });
-                tl.set(stairs, { y: '-50%' });
-                tl.to(stairs, {
-                    y: '150%',
-                    duration: 0.7,
-                    ease: 'power2.inOut',
-                    stagger: { amount: -0.35 },
-                });
-                tl.to(stairParentRef.current, { display: 'none' });
-                tl.play();
+                // Initial load: stairs skip the entering phase and just slide out
+                gsap.set(stairs, { y: '0%' });
                 firstLoad.current = false;
-            } else {
-                // Entry animation
-                tl.set(stairParentRef.current, { display: 'block' });
-                tl.from(stairs, {
-                    height: 0,
-                    duration: 0.7,
-                    ease: 'power2.inOut',
-                    stagger: { amount: -0.35 },
-                });
-                tl.to(stairs, {
-                    y: '150%',
-                    duration: 0.7,
-                    ease: 'power2.inOut',
-                    stagger: { amount: -0.35 },
-                });
-                tl.to(stairParentRef.current, { display: 'none' });
-                tl.to(stairs, { y: '0%' });
-                tl.play();
             }
 
-            gsap.from(pageRef.current, {
-                opacity: 0,
-                duration: 0.2,
-                delay: 1,
-                ease: 'power2.out',
+            tl.to(stairs, {
+                y: '100%',
+                duration: 0.7,
+                ease: 'power2.inOut',
+                stagger: 0.1,
             });
+
+            tl.set(stairParentRef.current, { display: 'none' });
+
+            // Animate page content fade in
+            gsap.fromTo(pageRef.current, 
+                { opacity: 0 }, 
+                { opacity: 1, duration: 0.4, ease: 'power2.out' }
+            );
 
             return () => {
                 tl.kill();
             };
         },
-        [currentPath]
+        { dependencies: [currentPath], revertOnUpdate: true }
     );
 
+    // Handle Exit/Cover animation when transition starts
     useGSAP(() => {
         if (isTransitioning) {
-            const tl = gsap.timeline();
-            tl.to(".stair", {
-                y: "0%",
-                height: "100%",
+            const stairs = stairsRefs.current;
+            gsap.set(stairParentRef.current, { display: 'block' });
+            gsap.set(stairs, { y: '-100%' });
+            
+            gsap.to(stairs, {
+                y: '0%',
                 duration: 0.6,
                 ease: "power2.inOut",
                 stagger: 0.1,
@@ -80,19 +69,24 @@ const Stairs = (props) => {
     }, [isTransitioning])
 
     return (
-        <div>
-            <div ref={stairParentRef} className="h-[200%] w-full fixed z-10 top-0" aria-hidden="true">
-                <div className="h-[150%] lg:h-full w-full flex">
+        <div className="relative">
+            <div 
+                ref={stairParentRef} 
+                className="stairs-parent fixed inset-0 z-[9999] pointer-events-none" 
+                aria-hidden="true"
+                style={{ display: 'none' }}
+            >
+                <div className="h-full w-full flex">
                     {Array.from({ length: stairsCount }).map((_, i) => (
                         <div
                             key={i}
-                            className="stair h-full w-1/5 bg-black"
+                            className="stair h-full flex-1 bg-black"
                             ref={el => stairsRefs.current[i] = el}
                         ></div>
                     ))}
                 </div>
             </div>
-            <div ref={pageRef}>{props.children}</div>
+            <div ref={pageRef} className="w-full h-full">{props.children}</div>
         </div>
     );
 }
