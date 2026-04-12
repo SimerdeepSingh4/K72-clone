@@ -1,11 +1,14 @@
+import React, { useRef, useContext } from 'react'
 import ProjectCard from '../components/projects/ProjectCard'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { LoaderContext } from '../context/NavContext'
 
 
 const Projects = () => {
-
-
+  const [loading] = useContext(LoaderContext)
+  const headerRef = useRef(null)
+  const listRef = useRef(null)
 
   const projects = [
     {
@@ -30,6 +33,29 @@ const Projects = () => {
     },
   ]
 
+  // Entrance animation (KEEPING AS REQUESTED)
+  useGSAP(() => {
+    if (loading) return;
+
+    gsap.from(headerRef.current, {
+        y: 100,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        delay: 0.4, 
+    });
+
+    gsap.from(".hero", {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+        delay: 0.6,
+    });
+  }, [loading]);
+
+  // Reverting to original global scroll logic
   useGSAP(function () {
     gsap.to('.hero', {
       height: '80vh',
@@ -39,7 +65,6 @@ const Projects = () => {
       },
       scrollTrigger: {
         trigger: ".lol",
-
         start: 'top 70%',
         end: 'top -380%',
         scrub: true,
@@ -48,13 +73,13 @@ const Projects = () => {
   });
     
   return (
-    <div className='p-4 bg-white text-black w-full'>
-      <div className=' pt-[45vh]'>
+    <div className='p-4 bg-white text-black w-full min-h-screen'>
+      <div className=' pt-[45vh] overflow-hidden' ref={headerRef}>
         <h2 className='font-[font2] text-[18vw] lg:text-[12vw] uppercase relative'>projets <sup className='text-[5vw] lg:text-[3vw] absolute lg:top-12 top-2'>16</sup></h2>
       </div>
-      <div className=' sm:-mt-10 lol '>
+      <div className=' sm:-mt-10 lol' ref={listRef}>
         {projects.map(function (elem, idx) {
-          return <div key={idx} className='hero w-full  h-[20vh] mb-4  gap-4 flex flex-col sm:flex-row justify-between items-center'>
+          return <div key={idx} className='hero w-full h-[20vh] mb-4 gap-4 flex flex-col sm:flex-row justify-between items-center'>
             <ProjectCard image1={elem.image1} image2={elem.image2} />
           </div>
         })}
