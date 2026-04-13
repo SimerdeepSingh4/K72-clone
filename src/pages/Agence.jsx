@@ -1,11 +1,12 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import { imageArray, getImageName } from "../components/agence/data";
+import { NavbarColorContext } from "../context/NavContext";
 
 const Agence = () => {
-
+  const [, setNavColor] = useContext(NavbarColorContext);
 
   const imageDivRef = useRef(null);
   const imageRef = useRef(null);
@@ -128,6 +129,8 @@ const [hovered, setHovered] = useState(null);
               end: "top center",
               markers: false,
               scrub: 2,
+              onEnter: () => setNavColor("white"),
+              onLeaveBack: () => setNavColor("black"),
             },
           });
 
@@ -146,6 +149,8 @@ const [hovered, setHovered] = useState(null);
         end: "top 100%",
         markers: false,
         scrub: 2,
+        onEnter: () => setNavColor("white"),
+        onLeaveBack: () => setNavColor("black"),
       },
     });
 
